@@ -1,0 +1,20 @@
+name = "heaven-edge-assets"
+main = "src/index.mjs"
+compatibility_date = "2026-07-09"
+
+[observability.logs]
+enabled = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gabriel_db"
+# Set this in your environment-specific config before production deploy.
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+
+[[r2_buckets]]
+binding = "ASSETS"
+bucket_name = "heaven-creator-assets"
+preview_bucket_name = "heaven-creator-assets-preview"
+
+[vars]
+MAX_SYNC_BYTES = "1073741824"
