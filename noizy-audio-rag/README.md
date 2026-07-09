@@ -31,6 +31,13 @@ Audio RAG scaffold for NOIZY workflows:
 2. Initialize Papyrus schema:
    - `sqlite3 papyrus/papyrus.db < papyrus/schema.sql`
 3. Run ingest/embedding scripts as needed.
+4. Run voice-first operator presets:
+   - `npm run autonomy:center -- 1`
+
+## Accessible autonomy
+
+- See `docs/ACCESSIBLE_AUTONOMY_SETUP.md` for low-typing and Talon-friendly operation.
+- VSCodium task presets are available in `.vscode/tasks.json`.
 
 ## Layout
 
