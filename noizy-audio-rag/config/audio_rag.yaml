@@ -8,6 +8,15 @@ pipeline:
     - D1
     - R2
     - Cloudflare
+  horizon:
+    retention_years: 40
+    storage_target_tb: 34
+    principles:
+      - artist sovereignty
+      - voice sovereignty
+      - local-first
+      - AI-native
+      - future-proof
 
 storage:
   local_faiss_primary: true

@@ -77,6 +77,16 @@ Action
 - Receipts Rule
 - MC96 Governs
 
+## Long-horizon mandate
+
+- 40 years retention horizon
+- 34 TB scale target
+- artist sovereignty
+- voice sovereignty
+- local-first
+- AI-native
+- future-proof
+
 ## Chief Architect remit
 
 - schema
