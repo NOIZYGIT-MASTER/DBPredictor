@@ -146,6 +146,7 @@
         "cf:deploy": "./scripts/run-cloudflare-deploy.sh",
         "cf:remote:one-command": "./scripts/run-cloudflare-remote.sh",
         "downloads:stage-to-master": "./scripts/import-downloads-to-master.sh",
+        "git:hotrod": "./scripts/hotrod-git-leader.sh",
         "test": "tsc -p tsconfig.test.json && mocha --timeout 5000 out/test/unit/setup.js out/test/unit/**/*.test.js",
         "test:coverage": "tsc -p tsconfig.test.json && c8 --reporter=text --reporter=lcov mocha --timeout 5000 out/test/unit/setup.js out/test/unit/**/*.test.js",
         "lint": "eslint .",
