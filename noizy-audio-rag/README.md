@@ -15,6 +15,15 @@ Audio RAG scaffold for NOIZY workflows:
 - Ollama
 - MC96
 - Local MCP Mesh
+- Supersonic NOIZYBEAST IDE
+
+## IDE layer
+
+- VSCodium
+- Continue
+- Terminal
+- GitKraken
+- Local MCP Dashboard
 
 ## Quick start
 
@@ -44,3 +53,68 @@ QUARANTINE
 VALIDATED  
 ↓  
 CANONICAL
+
+## Governance execution chain
+
+MC96  
+governs  
+↓  
+NOIZYBEAST IDE  
+↓  
+Agents  
+↓  
+Storage  
+↓  
+Search  
+↓  
+Action
+
+## Operating doctrine
+
+- Raw Assets Stay Local
+- Metadata Syncs
+- Vectors Mirror
+- Receipts Rule
+- MC96 Governs
+
+## Chief Architect remit
+
+- schema
+- standards
+- strategy
+- design
+
+## Research Director remit
+
+- deep search
+- knowledge
+- documentation
+
+## Operations focus
+
+- deployment
+- migration
+- D1
+- R2
+- Cloudflare
+
+## Archivist remit
+
+- preserve catalogs
+- maintain receipt history
+- enforce lineage continuity
+- catalog
+- metadata
+- classification
+
+## Papyrus core
+
+Papyrus  
+│  
+├── SQLite  
+├── FAISS  
+├── Receipt Ledger  
+├── Asset Registry  
+├── Metadata Registry  
+├── Consent Registry  
+└── Lineage Registry

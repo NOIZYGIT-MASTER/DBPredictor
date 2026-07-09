@@ -23,10 +23,14 @@ Canonical payload:
 
 Collections:
 
-- assets
-- receipts
-- consent_records
-- lineage
-- sync_state
-- quality_reports
-- duplicate_groups
+Firestore
+│
+├── metadata
+├── asset cards
+├── vectors
+├── approvals
+├── sync state
+├── quality reports
+├── duplicate groups
+├── agents
+└── work orders

@@ -89,6 +89,40 @@ CREATE TABLE IF NOT EXISTS duplicate_groups (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS embeddings (
+  embedding_id TEXT PRIMARY KEY,
+  asset_id TEXT NOT NULL,
+  vector_json TEXT NOT NULL,
+  model TEXT NOT NULL DEFAULT 'local-audio-rag',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS agents (
+  agent_id TEXT PRIMARY KEY,
+  role TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active',
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS work_orders (
+  work_order_id TEXT PRIMARY KEY,
+  agent_id TEXT NOT NULL,
+  action TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'queued',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS voice_dna_catalog (
+  voice_id TEXT PRIMARY KEY,
+  asset_id TEXT NOT NULL,
+  sha256 TEXT NOT NULL UNIQUE,
+  embedding_ref TEXT,
+  tags_json TEXT NOT NULL DEFAULT '[]',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE INDEX IF NOT EXISTS idx_local_assets_sha256 ON local_assets (sha256);
 CREATE INDEX IF NOT EXISTS idx_assets_owner ON assets (owner);
 CREATE INDEX IF NOT EXISTS idx_lineage_asset_id ON lineage (asset_id);
+CREATE INDEX IF NOT EXISTS idx_embeddings_asset_id ON embeddings (asset_id);
+CREATE INDEX IF NOT EXISTS idx_work_orders_agent_id ON work_orders (agent_id);
