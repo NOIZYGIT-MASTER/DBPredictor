@@ -51,6 +51,12 @@
             "type": "shell",
             "command": "npm run autonomy:center -- 7",
             "problemMatcher": []
+        },
+        {
+            "label": "NOIZY: FOSS Doctor (9)",
+            "type": "shell",
+            "command": "npm run autonomy:center -- 9",
+            "problemMatcher": []
         }
     ]
 }

@@ -26,6 +26,7 @@ Actions:
   6 | search <query>      Metadata/FAISS search
   7 | ship                Lint + test + typecheck gate
   8 | sync-git            Fetch/prune branch sync
+  9 | foss-doctor         GoLand/JBang/FOSS toolchain readiness check
   doctor                  Dependency and env health snapshot
   help                    Show this help
 
@@ -103,6 +104,10 @@ sync_git_mode() {
   (cd "$ROOT_DIR" && npm run git:hotrod -- sync "$GH_REPO" "$GH_PR_NUMBER")
 }
 
+foss_doctor_mode() {
+  (cd "$ROOT_DIR" && ./scripts/noizy-foss-stack-doctor.sh)
+}
+
 case "$ACTION" in
   1|observe) observe_mode "$@" ;;
   2|triage) triage_mode "$@" ;;
@@ -112,6 +117,7 @@ case "$ACTION" in
   6|search) search_mode "$@" ;;
   7|ship) ship_mode "$@" ;;
   8|sync-git) sync_git_mode "$@" ;;
+  9|foss-doctor) foss_doctor_mode "$@" ;;
   doctor) doctor_mode "$@" ;;
   help|--help|-h) print_usage ;;
   *)

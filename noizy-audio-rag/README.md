@@ -37,6 +37,7 @@ Audio RAG scaffold for NOIZY workflows:
 ## Accessible autonomy
 
 - See `docs/ACCESSIBLE_AUTONOMY_SETUP.md` for low-typing and Talon-friendly operation.
+- See `docs/FOSS_GOLAND_JBANG_STACK.md` for GoLand + JBang FOSS operator setup.
 - VSCodium task presets are available in `.vscode/tasks.json`.
 
 ## Layout

@@ -22,6 +22,7 @@ Use number presets so Talon can trigger short utterances.
 | `6` | search | Search metadata/vectors |
 | `7` | ship | lint + test + typecheck |
 | `8` | sync-git | fetch/prune branch sync |
+| `9` | foss-doctor | GoLand + JBang + FOSS toolchain health check |
 
 ## Safety gate for mutation
 
@@ -40,6 +41,7 @@ npm run autonomy:center -- 4
 - "noizy five" → `npm run autonomy:center -- 5`
 - "noizy six dream chamber" → `npm run autonomy:center -- 6 dream chamber`
 - "noizy seven" → `npm run autonomy:center -- 7`
+- "noizy nine" → `npm run autonomy:center -- 9`
 
 ## IDE integration strategy
 
@@ -53,3 +55,10 @@ npm run autonomy:center -- 4
 - `NOIZY_CANARY_LIMIT` (default `500`)
 - `NOIZY_GH_REPO` (default `GabrielAv0301/DBPredictor`)
 - `NOIZY_GH_PR_NUMBER` (default `1`)
+
+## JetBrains + JBang
+
+- Run: `npm run autonomy:center -- 9`
+- Direct: `npm run autonomy:foss:doctor`
+- JetBrains open-source support reference:  
+  `https://www.jetbrains.com/community/opensource/#support`

@@ -148,6 +148,7 @@
         "downloads:stage-to-master": "./scripts/import-downloads-to-master.sh",
         "git:hotrod": "./scripts/hotrod-git-leader.sh",
         "autonomy:center": "./scripts/noizy-autonomy-center.sh",
+        "autonomy:foss:doctor": "./scripts/noizy-foss-stack-doctor.sh",
         "test": "tsc -p tsconfig.test.json && mocha --timeout 5000 out/test/unit/setup.js out/test/unit/**/*.test.js",
         "test:coverage": "tsc -p tsconfig.test.json && c8 --reporter=text --reporter=lcov mocha --timeout 5000 out/test/unit/setup.js out/test/unit/**/*.test.js",
         "lint": "eslint .",
