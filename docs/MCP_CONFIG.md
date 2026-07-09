@@ -248,10 +248,14 @@ firebase init firestore
 
 **Fix:**
 ```bash
-# Grant necessary roles to service account
+# Grant scoped roles to service account (least privilege)
 gcloud projects add-iam-policy-binding PROJECT_ID \
   --member=serviceAccount:firebase-mcp@PROJECT_ID.iam.gserviceaccount.com \
-  --role=roles/firebase.admin
+  --role=roles/datastore.user
+
+gcloud projects add-iam-policy-binding PROJECT_ID \
+  --member=serviceAccount:firebase-mcp@PROJECT_ID.iam.gserviceaccount.com \
+  --role=roles/storage.objectViewer
 ```
 
 ---

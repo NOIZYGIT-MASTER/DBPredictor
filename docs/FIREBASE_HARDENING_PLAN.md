@@ -15,7 +15,7 @@
 - ✅ Create `.mcp/firebase.json` with hardened MCP config
 - ✅ Document in `FIREBASE_ARCHITECTURE.md`
 
-**Status:** Pending
+**Status:** Completed (implemented in `.mcp/firebase.json`)
 
 ---
 
@@ -48,7 +48,7 @@
 - ✅ Document collection schema and access patterns
 - ✅ Add to `FIREBASE_ARCHITECTURE.md`
 
-**Status:** Pending
+**Status:** Completed (implemented in `firestore.rules`)
 
 ---
 
@@ -81,7 +81,7 @@ Firestore = never sole authority
 - ✅ Create `FIREBASE_ARCHITECTURE.md` with integration guidelines
 - ✅ Add decision rules to `ARCHITECTURE.md`
 
-**Status:** Pending
+**Status:** Completed (documented in `docs/FOSS_ALTERNATIVES.md` and `docs/ARCHITECTURE.md`)
 
 ---
 

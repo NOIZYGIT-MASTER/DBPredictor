@@ -131,6 +131,13 @@ allow create: if request.auth != null
   && request.resource.data.operatorUid == request.auth.uid
   && request.resource.data.createdBy == request.auth.uid
   && request.resource.data.status in ['pending', 'draft']
+  && request.resource.data.approvalId == approvalId
+  && request.resource.data.receiptId is string
+  && request.resource.data.reason is string
+  && request.resource.data.reason.size() <= 1000
+  && request.resource.data.keys().hasOnly([
+       'approvalId', 'receiptId', 'operatorUid', 'createdBy', 'status', 'reason', 'createdAt'
+     ])
 ```
 
 **Lifecycle:**
@@ -170,7 +177,7 @@ Firebase MCP server provides Copilot AI with Firestore/Storage access for analys
 
 **Credential flow:**
 1. MCP uses `GOOGLE_APPLICATION_CREDENTIALS` (ADC)
-2. Service account must have `roles/firebase.admin` or scoped permissions
+2. Service account should use scoped permissions (avoid `roles/firebase.admin`)
 3. Server-side only; never expose credentials to client
 
 ---
@@ -194,6 +201,10 @@ All rules default to `allow read, write: if false` — open-by-exception.
 allow create: if request.auth != null
   && request.resource.data.operatorUid == request.auth.uid
   && request.resource.data.createdBy == request.auth.uid
+  && request.resource.data.approvalId == approvalId
+  && request.resource.data.receiptId is string
+  && request.resource.data.reason is string
+  && request.resource.data.reason.size() <= 1000
 ```
 
 **Read access (auth-only):**
