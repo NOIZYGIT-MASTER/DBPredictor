@@ -1,0 +1,78 @@
+runtime:
+  control_plane: DesktopCommander
+  governance: MC96
+  receipt_engine: Papyrus
+  default_mode: recommend
+  mode_transition_requires_receipt: true
+
+modes:
+  observe:
+    description: Read-only telemetry and discovery.
+    allows:
+      - search
+      - scan
+      - metadata_lookup
+      - receipt_verify
+    denies:
+      - writes
+      - deploy
+      - sync_mutation
+  recommend:
+    description: Build plans and proposals without storage mutation.
+    allows:
+      - observe
+      - plan_generation
+      - risk_assessment
+      - migration_preview
+    denies:
+      - writes
+      - delete
+  execute:
+    description: Mutating mode for approved actions.
+    requires:
+      - approval_token
+      - signed_request
+      - rate_limit_budget
+    allows:
+      - ingest
+      - embeddings
+      - faiss_build
+      - firestore_mirror_metadata
+      - receipt_emit
+    denies:
+      - raw_audio_remote_upload
+      - destructive_sync
+      - delete
+  continuous:
+    description: Scheduled/event-driven execution loop using n8n.
+    requires:
+      - execute_mode_requirements
+      - schedule_policy
+      - failure_stop_policy
+    allows:
+      - scheduled_scan
+      - webhook_sync
+      - pipeline_retries_non_destructive
+
+approval:
+  gatekeeper: MC96
+  policy:
+    can_recommend: true
+    cannot_mutate_without_approval: true
+    no_overwrite_without_approval: true
+
+failure_policy:
+  fail_fast: true
+  stage_stop_on_error: true
+  emit_failure_receipt: true
+  notify_channels:
+    - MCP.Discord
+    - MCP.Matrix
+
+doctrine:
+  - one_command_one_action_one_receipt
+  - raw_assets_stay_local
+  - metadata_syncs
+  - vectors_mirror
+  - receipts_rule
+  - mc96_governs

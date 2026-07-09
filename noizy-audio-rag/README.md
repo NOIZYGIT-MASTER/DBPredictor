@@ -35,6 +35,9 @@ Audio RAG scaffold for NOIZY workflows:
 ## Layout
 
 - `config/audio_rag.yaml`: pipeline settings
+- `config/agent_modes.yaml`: autonomous runtime modes and guardrails
+- `config/mcp_adapter_contracts.yaml`: MCP adapter I/O contracts and policy
+- `config/local_apps_mesh.yaml`: local app integration mesh profile
 - `papyrus/`: schema + local SQLite database
 - `ingest/`: ingest + fingerprint + metadata writers
 - `embeddings/`: embedding/index/query scripts
