@@ -3,6 +3,10 @@ HEAVEN Worker asset API blueprint
 
 Use this route module in your Cloudflare Worker deployment to register/search/sync creator assets against D1 + R2.
 
+Before running remote D1 migrations:
+- export `CLOUDFLARE_API_TOKEN` with D1 edit permissions
+- run `npm run d1:migrate:hvs-assets`
+
 ```javascript
 export default {
   async fetch(request, env) {

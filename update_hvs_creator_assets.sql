@@ -13,3 +13,12 @@ CREATE TABLE IF NOT EXISTS hvs_creator_assets (
 
 CREATE INDEX IF NOT EXISTS idx_asset_public_id ON hvs_creator_assets (public_id);
 CREATE INDEX IF NOT EXISTS idx_asset_app ON hvs_creator_assets (app_name);
+
+CREATE TRIGGER IF NOT EXISTS trg_hvs_creator_assets_updated_at
+AFTER UPDATE ON hvs_creator_assets
+FOR EACH ROW
+BEGIN
+  UPDATE hvs_creator_assets
+  SET updated_at = CURRENT_TIMESTAMP
+  WHERE asset_id = NEW.asset_id;
+END;
