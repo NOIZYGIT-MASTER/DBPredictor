@@ -1,0 +1,47 @@
+pipeline:
+  input_dir: /NOIZY/raw_stems
+  canary_limit: 500
+  dry_run_default: true
+
+storage:
+  local_faiss_primary: true
+  r2_bucket: r2://voice-dna-storage/
+  r2_layout: sha256/{aa}/{bb}/{sha256}{ext}
+  firestore_metadata_only: true
+
+rules:
+  no_deletes: true
+  no_destructive_sync: true
+  no_overwrite_without_approval: true
+  no_duplicates: true
+  immutable_references: true
+
+firestore:
+  collections:
+    - assets
+    - receipts
+    - consent_records
+    - lineage
+    - sync_state
+    - quality_reports
+    - duplicate_groups
+
+mcp_mesh:
+  channels:
+    - MCP Storage
+    - MCP Git
+    - MCP Receipts
+    - MCP HotRod
+    - MCP Firestore
+    - MCP D1
+    - MCP R2
+    - MCP Papyrus
+    - MCP Discord
+
+agents:
+  architect: GABRIEL
+  research: LUCY
+  operations: HEAVEN
+  auditor: KEITH
+  catalog: SHIRL
+  execution: NOIZYBEAST
