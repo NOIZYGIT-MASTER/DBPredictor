@@ -1,0 +1,68 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default closed: deny all access by default
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Receipts: readable by authenticated operators, server-written only
+    // Receipts are immutable records from MC96 — never modified or deleted by clients
+    match /receipts/{receiptId} {
+      allow read: if request.auth != null;
+      allow create, update, delete: if false;
+
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+    }
+
+    // Assets: readable by authenticated operators, server/IAM-written only
+    // Assets reference files stored in Cloud Storage — never directly modified by clients
+    match /assets/{assetFingerprint} {
+      allow read: if request.auth != null;
+      allow create, update, delete: if false;
+
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+    }
+
+    // Lineage: event history, readable by operators, server-written only
+    // Immutable append-only event log for audit trails
+    match /lineage/{eventId} {
+      allow read: if request.auth != null;
+      allow create, update, delete: if false;
+
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+    }
+
+    // Approvals: clients may create approval requests for themselves
+    // Clients read their own approvals; servers process and may mark as complete
+    match /approvals/{approvalId} {
+      allow read: if request.auth != null
+        && (request.auth.uid == resource.data.operatorUid
+            || request.auth.uid == resource.data.createdBy);
+
+      allow create: if request.auth != null
+        && request.resource.data.operatorUid == request.auth.uid
+        && request.resource.data.createdBy == request.auth.uid
+        && request.resource.data.status in ['pending', 'draft']
+        && request.resource.data.createdAt == request.time;
+
+      allow update, delete: if false;
+
+      match /{allSubcollections=**} {
+        allow read: if request.auth != null;
+        allow write: if false;
+      }
+    }
+  }
+}
