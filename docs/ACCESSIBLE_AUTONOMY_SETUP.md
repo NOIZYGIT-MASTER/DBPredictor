@@ -23,6 +23,7 @@ Use number presets so Talon can trigger short utterances.
 | `7` | ship | lint + test + typecheck |
 | `8` | sync-git | fetch/prune branch sync |
 | `9` | foss-doctor | GoLand + JBang + FOSS toolchain health check |
+| `10` | capacity-report | NOIZYVAULT_OS storage capacity + evacuation map |
 
 ## Safety gate for mutation
 
@@ -42,6 +43,7 @@ npm run autonomy:center -- 4
 - "noizy six dream chamber" → `npm run autonomy:center -- 6 dream chamber`
 - "noizy seven" → `npm run autonomy:center -- 7`
 - "noizy nine" → `npm run autonomy:center -- 9`
+- "noizy ten" → `npm run autonomy:center -- 10`
 
 ## IDE integration strategy
 

@@ -27,6 +27,7 @@ Actions:
   7 | ship                Lint + test + typecheck gate
   8 | sync-git            Fetch/prune branch sync
   9 | foss-doctor         GoLand/JBang/FOSS toolchain readiness check
+  10| capacity-report     NOIZYVAULT_OS storage capacity + evacuation map
   doctor                  Dependency and env health snapshot
   help                    Show this help
 
@@ -108,6 +109,10 @@ foss_doctor_mode() {
   (cd "$ROOT_DIR" && ./scripts/noizy-foss-stack-doctor.sh)
 }
 
+capacity_report_mode() {
+  (cd "$ROOT_DIR" && ./scripts/noizy-capacity-report.sh)
+}
+
 case "$ACTION" in
   1|observe) observe_mode "$@" ;;
   2|triage) triage_mode "$@" ;;
@@ -118,6 +123,7 @@ case "$ACTION" in
   7|ship) ship_mode "$@" ;;
   8|sync-git) sync_git_mode "$@" ;;
   9|foss-doctor) foss_doctor_mode "$@" ;;
+  10|capacity-report) capacity_report_mode "$@" ;;
   doctor) doctor_mode "$@" ;;
   help|--help|-h) print_usage ;;
   *)
