@@ -1,4 +1,5 @@
 import React from 'react';
+import { posthog } from '../posthog';
 import { HistoryEntry } from '../types/shared';
 import { RiskBadge } from './RiskBadge';
 import { Clock, Trash2, FileText, Download } from 'lucide-react';
@@ -32,7 +33,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ history, onClear, onEx
                     <div style={{ display: 'flex', gap: '8px' }}>
                         <button
                             className="secondary-button"
-                            onClick={() => onExport('json')}
+                            onClick={() => { posthog.capture('history_exported', { format: 'json', entry_count: history.length }); onExport('json'); }}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -45,7 +46,7 @@ export const HistoryView: React.FC<HistoryViewProps> = ({ history, onClear, onEx
                         </button>
                         <button
                             className="secondary-button"
-                            onClick={() => onExport('csv')}
+                            onClick={() => { posthog.capture('history_exported', { format: 'csv', entry_count: history.length }); onExport('csv'); }}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
