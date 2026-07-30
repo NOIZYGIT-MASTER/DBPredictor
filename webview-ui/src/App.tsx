@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { posthog } from './posthog';
 import { useVSCodeMessage } from './hooks/useVSCodeMessage';
 import { RiskBadge } from './components/RiskBadge';
 import { ImpactBar } from './components/ImpactBar';
@@ -46,6 +47,13 @@ const App: React.FC = () => {
                 setImpact(lastMessage.data);
                 setSimulationResult(null); // Reset simulation on new impact
                 setSimulationWarn(null);
+                posthog.capture('impact_analysis_received', {
+                    risk_level: lastMessage.data.riskLevel,
+                    operation: lastMessage.data.operation,
+                    estimation_quality: lastMessage.data.estimationQuality,
+                    cascade_depth: lastMessage.data.cascadeChain.length,
+                    base_rows_affected: lastMessage.data.baseRowsAffected,
+                });
                 break;
             case 'UPDATE_HISTORY':
                 setHistory(lastMessage.data);
@@ -53,6 +61,10 @@ const App: React.FC = () => {
             case 'SIMULATION_RESULT':
                 setSimulationResult(lastMessage.rowCount);
                 setSimulationWarn(lastMessage.warnCascade || null);
+                posthog.capture('simulation_completed', {
+                    rows_affected: lastMessage.rowCount,
+                    had_cascade_warning: !!lastMessage.warnCascade,
+                });
                 break;
             case 'CONNECTION_STATUS':
                 setIsConnected(lastMessage.data.isConnected);
@@ -61,11 +73,17 @@ const App: React.FC = () => {
     }, [lastMessage]);
 
     const clearHistory = () => {
+        posthog.capture('history_cleared');
         postMessage({ type: 'CLEAR_HISTORY' });
     };
 
     const runSimulation = () => {
         if (impact) {
+            posthog.capture('simulation_run', {
+                risk_level: impact.riskLevel,
+                operation: impact.operation,
+                cascade_depth: impact.cascadeChain.length,
+            });
             postMessage({ type: 'SIMULATE', data: impact });
         }
     };
@@ -93,9 +111,10 @@ const App: React.FC = () => {
                     <AlertCircle size={16} />
                     <span>Disconnected from database. Some data may be stale.</span>
                     <button
-                        onClick={() =>
-                            (window as any).vscode.postMessage({ type: 'RECONNECT_PROMPT' })
-                        }
+                        onClick={() => {
+                            posthog.capture('reconnect_prompted');
+                            (window as any).vscode.postMessage({ type: 'RECONNECT_PROMPT' });
+                        }}
                         style={{
                             marginLeft: 'auto',
                             padding: '4px 12px',
@@ -120,7 +139,7 @@ const App: React.FC = () => {
                 }}
             >
                 <button
-                    onClick={() => setActiveTab('current')}
+                    onClick={() => { setActiveTab('current'); posthog.capture('tab_switched', { tab: 'analysis' }); }}
                     style={{
                         padding: '8px 12px',
                         background: 'none',
@@ -140,7 +159,7 @@ const App: React.FC = () => {
                     <Zap size={16} /> Analysis
                 </button>
                 <button
-                    onClick={() => setActiveTab('history')}
+                    onClick={() => { setActiveTab('history'); posthog.capture('tab_switched', { tab: 'history' }); }}
                     style={{
                         padding: '8px 12px',
                         background: 'none',
