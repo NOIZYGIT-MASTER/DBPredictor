@@ -51,11 +51,23 @@ nightly_scan() {
   hour=$(date +%H)
   local marker="$LOG_DIR/.scan_$(date +%Y%m%d)"
   if [[ "$hour" -eq 4 && ! -f "$marker" ]]; then
-    log "Running nightly inventory scan"
-    local input="${NOIZY_INPUT_PATH:-/NOIZY/raw_stems}"
-    [[ -d "$input" ]] && (cd "$ARMY_ROOT" && ./noizy scan --input "$input" >> "$LOG_DIR/scan_$(date +%Y%m%d).log" 2>&1) || true
+    log "Running nightly inventory scan (Gabriel Turbo)"
+    (cd "$ARMY_ROOT" && ./noizy-army/scripts/gabriel-turbo-scan.sh >> "$LOG_DIR/gabriel_$(date +%Y%m%d).log" 2>&1) || true
     touch "$marker"
-    receipt "nightly_scan"
+    receipt "nightly_gabriel_turbo_scan"
+  fi
+}
+
+weekly_dedup() {
+  local dow
+  dow=$(date +%u)  # 1=Mon
+  local marker="$LOG_DIR/.dedup_$(date +%Y%W)"
+  if [[ "$dow" -eq 1 && ! -f "$marker" ]]; then
+    log "Running weekly duplicate scan"
+    (cd "$ARMY_ROOT" && NOIZY_SCAN_ROOTS="/Volumes/NOIZY_POOL_B/FOR SORTING:/Volumes/NOIZY_POOL_A/NOIZY_SAMPLE_MASTER" \
+      python3 noizy-audio-rag/ingest/fingerprint_audio.py >> "$LOG_DIR/dedup_$(date +%Y%W).log" 2>&1) || true
+    touch "$marker"
+    receipt "weekly_dedup_scan"
   fi
 }
 
@@ -67,6 +79,7 @@ while true; do
   check_n8n
   nightly_capacity
   nightly_scan
+  weekly_dedup
   log "Heartbeat OK — sleeping ${INTERVAL}s"
   receipt "heartbeat"
   sleep "$INTERVAL"

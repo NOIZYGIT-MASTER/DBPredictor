@@ -5,6 +5,29 @@ runtime:
   default_mode: recommend
   mode_transition_requires_receipt: true
 
+artist_sovereignty:
+  prime_directive: "Every artist is a unique individual. Their voice, brand, catalog, and future belong to them alone."
+  pillars:
+    - CONTROL: artist holds final authority on every creative and commercial decision
+    - CREDIBILITY: brand voice and creative DNA are per-artist, never blended or templated
+    - BRAND_CURATION: catalog, persona, and market position researched individually per artist
+    - MONETIZATION: revenue paths built from the artist's catalog — no lock-in, transparent
+    - CATALOG_SOVEREIGNTY: raw assets local, SHA-256 receipts on every asset, lineage immutable
+  hard_limits:
+    - never_share_voice_dna_across_artists: true
+    - never_publish_without_artist_approval_receipt: true
+    - never_overwrite_master_files: true
+    - never_use_artist_data_for_training_without_consent: true
+    - never_generate_generic_output: true  # every output calibrated to the specific artist
+  per_artist_expansion_loop:
+    steps:
+      - DISCOVER: scan catalog for untapped assets
+      - CONTEXTUALIZE: identify market moment fit
+      - PROPOSE: specific opportunity (sync/release/collab/licensing)
+      - GATE: hold for artist approval before any action
+      - EXECUTE: only on explicit approval with receipt
+      - LEARN: update artist profile with outcome
+
 modes:
   observe:
     description: Read-only telemetry and discovery.
@@ -13,6 +36,8 @@ modes:
       - scan
       - metadata_lookup
       - receipt_verify
+      - artist_catalog_research
+      - brand_opportunity_discovery
     denies:
       - writes
       - deploy
@@ -24,6 +49,8 @@ modes:
       - plan_generation
       - risk_assessment
       - migration_preview
+      - monetization_opportunity_report
+      - brand_development_proposal
     denies:
       - writes
       - delete
@@ -33,16 +60,19 @@ modes:
       - approval_token
       - signed_request
       - rate_limit_budget
+      - artist_identity_confirmed
     allows:
       - ingest
       - embeddings
       - faiss_build
       - firestore_mirror_metadata
       - receipt_emit
+      - catalog_update
     denies:
       - raw_audio_remote_upload
       - destructive_sync
       - delete
+      - cross_artist_data_share
   continuous:
     description: Scheduled/event-driven execution loop using n8n.
     requires:
@@ -53,6 +83,7 @@ modes:
       - scheduled_scan
       - webhook_sync
       - pipeline_retries_non_destructive
+      - nightly_brand_opportunity_scan
 
 approval:
   gatekeeper: MC96
@@ -60,6 +91,8 @@ approval:
     can_recommend: true
     cannot_mutate_without_approval: true
     no_overwrite_without_approval: true
+    artist_approval_required_for_creative_output: true
+    monetization_requires_artist_confirmation: true
 
 failure_policy:
   fail_fast: true
@@ -76,3 +109,7 @@ doctrine:
   - vectors_mirror
   - receipts_rule
   - mc96_governs
+  - artists_are_not_products
+  - voice_dna_is_sovereign
+  - catalog_is_the_greatest_asset
+  - control_credibility_brand_monetization_sovereignty

@@ -57,6 +57,12 @@
             "type": "shell",
             "command": "npm run autonomy:center -- 9",
             "problemMatcher": []
+        },
+        {
+            "label": "NOIZY: Capacity Report (10)",
+            "type": "shell",
+            "command": "npm run autonomy:center -- 10",
+            "problemMatcher": []
         }
     ]
 }
