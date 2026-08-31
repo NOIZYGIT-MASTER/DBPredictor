@@ -1,12 +1,12 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-16T14:38:02.814Z",
+  "updatedAt": "2026-08-18T04:41:19.631Z",
   "storyId": null,
   "direction": {
     "activeRoles": [],
     "activeFiles": [],
     "domain": "general",
-    "lastActivityAt": "2026-08-16T14:37:37.764Z"
+    "lastActivityAt": "2026-08-18T04:40:21.475Z"
   },
   "rules": {
     "code_quality": [
